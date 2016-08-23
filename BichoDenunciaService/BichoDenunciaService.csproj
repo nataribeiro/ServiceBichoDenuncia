@@ -57,6 +57,7 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -135,12 +136,15 @@
     <Compile Include="BichoDenuncia.svc.cs">
       <DependentUpon>BichoDenuncia.svc</DependentUpon>
     </Compile>
+    <Compile Include="Estrutura\Denuncia.cs" />
+    <Compile Include="Estrutura\Hashtag.cs" />
+    <Compile Include="Estrutura\Midia.cs" />
+    <Compile Include="Estrutura\ResultadoOperacao.cs" />
+    <Compile Include="Estrutura\Retorno.cs" />
     <Compile Include="IBichoDenuncia.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Estrutura\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
