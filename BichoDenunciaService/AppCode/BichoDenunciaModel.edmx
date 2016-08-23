@@ -1,0 +1,295 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="webserviceModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="denuncia">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="titulo" Type="varchar" MaxLength="100" />
+          <Property Name="descricao" Type="varchar" MaxLength="500" />
+          <Property Name="situacao" Type="enum" />
+          <Property Name="data" Type="datetime" Precision="0" />
+          <Property Name="categoria_animal" Type="varchar" MaxLength="50" />
+          <Property Name="tipo_animal" Type="varchar" MaxLength="50" />
+          <Property Name="endereco" Type="varchar" MaxLength="100" />
+          <Property Name="endereco_latitude" Type="double" />
+          <Property Name="endereco_longitude" Type="double" />
+          <Property Name="denunciante_email" Type="varchar" MaxLength="100" />
+          <Property Name="denunciante_telefone" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="hashtag">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_denuncia" Type="int" />
+          <Property Name="hashtag" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="midia">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_denuncia" Type="int" />
+          <Property Name="sequencia" Type="int" />
+          <Property Name="tipo_midia" Type="enum" />
+          <Property Name="arquivo" Type="longblob" />
+        </EntityType>
+        <EntityType Name="retorno">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_denuncia" Type="int" />
+          <Property Name="entidade" Type="varchar" MaxLength="50" />
+          <Property Name="descricao" Type="varchar" MaxLength="500" />
+          <Property Name="data" Type="datetime" Precision="0" />
+        </EntityType>
+        <Association Name="fk_denuncia">
+          <End Role="denuncia" Type="Self.denuncia" Multiplicity="0..1" />
+          <End Role="hashtag" Type="Self.hashtag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="denuncia">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="hashtag">
+              <PropertyRef Name="id_denuncia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_denuncia_midia">
+          <End Role="denuncia" Type="Self.denuncia" Multiplicity="0..1" />
+          <End Role="midia" Type="Self.midia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="denuncia">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="midia">
+              <PropertyRef Name="id_denuncia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_denuncia_retorno">
+          <End Role="denuncia" Type="Self.denuncia" Multiplicity="0..1" />
+          <End Role="retorno" Type="Self.retorno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="denuncia">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="retorno">
+              <PropertyRef Name="id_denuncia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="webserviceModelStoreContainer">
+          <EntitySet Name="denuncia" EntityType="Self.denuncia" Schema="webservice" store:Type="Tables" />
+          <EntitySet Name="hashtag" EntityType="Self.hashtag" Schema="webservice" store:Type="Tables" />
+          <EntitySet Name="midia" EntityType="Self.midia" Schema="webservice" store:Type="Tables" />
+          <EntitySet Name="retorno" EntityType="Self.retorno" Schema="webservice" store:Type="Tables" />
+          <AssociationSet Name="fk_denuncia" Association="Self.fk_denuncia">
+            <End Role="denuncia" EntitySet="denuncia" />
+            <End Role="hashtag" EntitySet="hashtag" />
+          </AssociationSet>
+          <AssociationSet Name="fk_denuncia_midia" Association="Self.fk_denuncia_midia">
+            <End Role="denuncia" EntitySet="denuncia" />
+            <End Role="midia" EntitySet="midia" />
+          </AssociationSet>
+          <AssociationSet Name="fk_denuncia_retorno" Association="Self.fk_denuncia_retorno">
+            <End Role="denuncia" EntitySet="denuncia" />
+            <End Role="retorno" EntitySet="retorno" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="webserviceModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="denuncia">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="titulo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="descricao" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="situacao" Type="String" MaxLength="65532" FixedLength="false" Unicode="false" />
+          <Property Name="data" Type="DateTime" />
+          <Property Name="categoria_animal" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="tipo_animal" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="endereco" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="endereco_latitude" Type="Double" />
+          <Property Name="endereco_longitude" Type="Double" />
+          <Property Name="denunciante_email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="denunciante_telefone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="hashtag" Relationship="Self.fk_denuncia" FromRole="denuncia" ToRole="hashtag" />
+          <NavigationProperty Name="midia" Relationship="Self.fk_denuncia_midia" FromRole="denuncia" ToRole="midia" />
+          <NavigationProperty Name="retorno" Relationship="Self.fk_denuncia_retorno" FromRole="denuncia" ToRole="retorno" />
+        </EntityType>
+        <EntityType Name="hashtag">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_denuncia" Type="Int32" />
+          <Property Name="hashtag1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="denuncia" Relationship="Self.fk_denuncia" FromRole="hashtag" ToRole="denuncia" />
+        </EntityType>
+        <EntityType Name="midia">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_denuncia" Type="Int32" />
+          <Property Name="sequencia" Type="Int32" />
+          <Property Name="tipo_midia" Type="String" MaxLength="65532" FixedLength="false" Unicode="false" />
+          <Property Name="arquivo" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="denuncia" Relationship="Self.fk_denuncia_midia" FromRole="midia" ToRole="denuncia" />
+        </EntityType>
+        <EntityType Name="retorno">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_denuncia" Type="Int32" />
+          <Property Name="entidade" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="descricao" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="data" Type="DateTime" />
+          <NavigationProperty Name="denuncia" Relationship="Self.fk_denuncia_retorno" FromRole="retorno" ToRole="denuncia" />
+        </EntityType>
+        <Association Name="fk_denuncia">
+          <End Role="denuncia" Type="Self.denuncia" Multiplicity="0..1" />
+          <End Role="hashtag" Type="Self.hashtag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="denuncia">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="hashtag">
+              <PropertyRef Name="id_denuncia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_denuncia_midia">
+          <End Role="denuncia" Type="Self.denuncia" Multiplicity="0..1" />
+          <End Role="midia" Type="Self.midia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="denuncia">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="midia">
+              <PropertyRef Name="id_denuncia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_denuncia_retorno">
+          <End Role="denuncia" Type="Self.denuncia" Multiplicity="0..1" />
+          <End Role="retorno" Type="Self.retorno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="denuncia">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="retorno">
+              <PropertyRef Name="id_denuncia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="webserviceEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="denuncia" EntityType="Self.denuncia" />
+          <EntitySet Name="hashtag" EntityType="Self.hashtag" />
+          <EntitySet Name="midia" EntityType="Self.midia" />
+          <EntitySet Name="retorno" EntityType="Self.retorno" />
+          <AssociationSet Name="fk_denuncia" Association="Self.fk_denuncia">
+            <End Role="denuncia" EntitySet="denuncia" />
+            <End Role="hashtag" EntitySet="hashtag" />
+          </AssociationSet>
+          <AssociationSet Name="fk_denuncia_midia" Association="Self.fk_denuncia_midia">
+            <End Role="denuncia" EntitySet="denuncia" />
+            <End Role="midia" EntitySet="midia" />
+          </AssociationSet>
+          <AssociationSet Name="fk_denuncia_retorno" Association="Self.fk_denuncia_retorno">
+            <End Role="denuncia" EntitySet="denuncia" />
+            <End Role="retorno" EntitySet="retorno" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="webserviceModelStoreContainer" CdmEntityContainer="webserviceEntities">
+          <EntitySetMapping Name="denuncia">
+            <EntityTypeMapping TypeName="webserviceModel.denuncia">
+              <MappingFragment StoreEntitySet="denuncia">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="titulo" ColumnName="titulo" />
+                <ScalarProperty Name="descricao" ColumnName="descricao" />
+                <ScalarProperty Name="situacao" ColumnName="situacao" />
+                <ScalarProperty Name="data" ColumnName="data" />
+                <ScalarProperty Name="categoria_animal" ColumnName="categoria_animal" />
+                <ScalarProperty Name="tipo_animal" ColumnName="tipo_animal" />
+                <ScalarProperty Name="endereco" ColumnName="endereco" />
+                <ScalarProperty Name="endereco_latitude" ColumnName="endereco_latitude" />
+                <ScalarProperty Name="endereco_longitude" ColumnName="endereco_longitude" />
+                <ScalarProperty Name="denunciante_email" ColumnName="denunciante_email" />
+                <ScalarProperty Name="denunciante_telefone" ColumnName="denunciante_telefone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="hashtag">
+            <EntityTypeMapping TypeName="webserviceModel.hashtag">
+              <MappingFragment StoreEntitySet="hashtag">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_denuncia" ColumnName="id_denuncia" />
+                <ScalarProperty Name="hashtag1" ColumnName="hashtag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="midia">
+            <EntityTypeMapping TypeName="webserviceModel.midia">
+              <MappingFragment StoreEntitySet="midia">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_denuncia" ColumnName="id_denuncia" />
+                <ScalarProperty Name="sequencia" ColumnName="sequencia" />
+                <ScalarProperty Name="tipo_midia" ColumnName="tipo_midia" />
+                <ScalarProperty Name="arquivo" ColumnName="arquivo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="retorno">
+            <EntityTypeMapping TypeName="webserviceModel.retorno">
+              <MappingFragment StoreEntitySet="retorno">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_denuncia" ColumnName="id_denuncia" />
+                <ScalarProperty Name="entidade" ColumnName="entidade" />
+                <ScalarProperty Name="descricao" ColumnName="descricao" />
+                <ScalarProperty Name="data" ColumnName="data" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
