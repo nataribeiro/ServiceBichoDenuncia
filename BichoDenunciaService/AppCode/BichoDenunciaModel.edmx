@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="webserviceModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="webserviceModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="denuncia">
           <Key>
             <PropertyRef Name="id" />
@@ -21,6 +21,7 @@
           <Property Name="endereco_longitude" Type="double" />
           <Property Name="denunciante_email" Type="varchar" MaxLength="100" />
           <Property Name="denunciante_telefone" Type="varchar" MaxLength="20" />
+          <Property Name="id_dispositivo" Type="varchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="hashtag">
           <Key>
@@ -104,8 +105,7 @@
             <End Role="retorno" EntitySet="retorno" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="webserviceModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -128,6 +128,7 @@
           <NavigationProperty Name="hashtag" Relationship="Self.fk_denuncia" FromRole="denuncia" ToRole="hashtag" />
           <NavigationProperty Name="midia" Relationship="Self.fk_denuncia_midia" FromRole="denuncia" ToRole="midia" />
           <NavigationProperty Name="retorno" Relationship="Self.fk_denuncia_retorno" FromRole="denuncia" ToRole="retorno" />
+          <Property Name="id_dispositivo" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="hashtag">
           <Key>
@@ -223,6 +224,7 @@
           <EntitySetMapping Name="denuncia">
             <EntityTypeMapping TypeName="webserviceModel.denuncia">
               <MappingFragment StoreEntitySet="denuncia">
+                <ScalarProperty Name="id_dispositivo" ColumnName="id_dispositivo" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="titulo" ColumnName="titulo" />
                 <ScalarProperty Name="descricao" ColumnName="descricao" />

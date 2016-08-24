@@ -34,8 +34,7 @@ namespace BichoDenunciaService.AppCode
         public string denunciante_email { get; set; }
         public string denunciante_telefone { get; set; }
         public string id_dispositivo { get; set; }
-
-
+    
         public virtual ICollection<hashtag> hashtag { get; set; }
         public virtual ICollection<midia> midia { get; set; }
         public virtual ICollection<retorno> retorno { get; set; }

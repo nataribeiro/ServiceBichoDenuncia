@@ -94,6 +94,7 @@
     <Content Include="AppCode\BichoDenunciaModel.edmx.diagram">
       <DependentUpon>BichoDenunciaModel.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\BichoDenuncia.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
