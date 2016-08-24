@@ -53,6 +53,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -137,8 +141,10 @@
     <Compile Include="BichoDenuncia.svc.cs">
       <DependentUpon>BichoDenuncia.svc</DependentUpon>
     </Compile>
+    <Compile Include="Estrutura\AndroidData.cs" />
     <Compile Include="Estrutura\Denuncia.cs" />
     <Compile Include="Estrutura\Hashtag.cs" />
+    <Compile Include="Estrutura\Mensagem.cs" />
     <Compile Include="Estrutura\Midia.cs" />
     <Compile Include="Estrutura\ResultadoOperacao.cs" />
     <Compile Include="Estrutura\Retorno.cs" />

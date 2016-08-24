@@ -24,5 +24,9 @@ namespace BichoDenunciaService
         [OperationContract]
         [WebInvoke(Method = "POST", UriTemplate = "/Denuncia", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare)]
         ResultadoOperacao EnviarDenuncia(Denuncia denuncia);
+
+        [OperationContract]
+        [WebInvoke(Method = "GET", UriTemplate = "/AlteraSituacaoDenuncia/{id}/{situacao}", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare)]
+        Denuncia AlteraSituacaoDenuncia(string id, string situacao);
     }
 }
