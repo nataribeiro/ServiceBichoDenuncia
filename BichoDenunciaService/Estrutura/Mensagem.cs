@@ -7,7 +7,8 @@ namespace BichoDenunciaService.Estrutura
 {
     public class Mensagem
     {
-        public AndroidData data { get; set; }
-        public List<String> registration_ids { get; set; }
+        public string data { get; set; }
+        public string to { get; set; }
+        public Notification notification { get; set; }
     }
 }

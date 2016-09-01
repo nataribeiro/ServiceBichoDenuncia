@@ -146,6 +146,7 @@
     <Compile Include="Estrutura\Hashtag.cs" />
     <Compile Include="Estrutura\Mensagem.cs" />
     <Compile Include="Estrutura\Midia.cs" />
+    <Compile Include="Estrutura\Notification.cs" />
     <Compile Include="Estrutura\ResultadoOperacao.cs" />
     <Compile Include="Estrutura\Retorno.cs" />
     <Compile Include="IBichoDenuncia.cs" />

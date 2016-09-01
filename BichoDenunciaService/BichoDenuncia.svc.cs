@@ -288,32 +288,40 @@ namespace BichoDenunciaService
                 //Envia Notificação
                 if(!string.IsNullOrEmpty(denuncia.id_dispositivo))
                 {
+
+                    //AndroidData androidData = new AndroidData();
+                    //androidData.mensagem = 
+                    //androidData.denuncia = JsonConvert.SerializeObject(denuncia);                    
+
+                    //msg.data = androidData;
                     Mensagem msg = new Mensagem();
-                    AndroidData androidData = new AndroidData();
-                    androidData.mensagem = "Sua denúncia foi ouvida!";
-                    androidData.denuncia = JsonConvert.SerializeObject(denuncia);                    
+                    msg.to = denuncia.id_dispositivo;
 
-                    msg.data = androidData;
+                    msg.notification = new Notification();                    
+                    msg.notification.title = "Sua denúncia foi ouvida!";
+                    msg.notification.text = "Veja o retorno de sua denúncia";
 
-                    msg.registration_ids = new List<string>();
-                    //DataTable dtRegistrationIds = DAL.RetornaDataTable("select REGID_ANDROID from REGIDS_MOBILE where CLCODIGO = '" + chamado.clcodigo + "'");
-                    //foreach (DataRow dr in dtRegistrationIds.Rows)
-                    //    msg.registration_ids.Add(dr["REGID_ANDROID"].ToString());
-                    msg.registration_ids.Add(denuncia.id_dispositivo);
+                    //msg.data = JsonConvert.SerializeObject(denuncia);
 
-                    var request = (HttpWebRequest)WebRequest.Create("https://gcm-http.googleapis.com/gcm/send");
+                    var request = (HttpWebRequest)WebRequest.Create("https://fcm.googleapis.com/fcm/send");
                     var postData = JsonConvert.SerializeObject(msg);
                     var data = Encoding.UTF8.GetBytes(postData);
 
                     request.Method = "POST";
                     request.ContentType = "application/json";
                     request.ContentLength = data.Length;
-                    request.Headers["Authorization"] = "key=AIzaSyBQS9AWseiNbKy7yH892N1lmSqkf8JDC9M";                                                            
+                    request.Headers["Authorization"] = "key=AIzaSyBIbX588UPSBq65p5d7PAHcfoT5_rlmAjg";
 
-                    using (var stream = request.GetRequestStream())
-                    {
-                        stream.Write(data, 0, data.Length);
+                    using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+                    {                       
+                        streamWriter.Write(postData);
+                        streamWriter.Flush();
+                        streamWriter.Close();
                     }
+                    //using (var stream = request.GetRequestStream())
+                    //{
+                    //    stream.Write(data, 0, data.Length);
+                    //}
 
                     var response = (HttpWebResponse)request.GetResponse();
 
